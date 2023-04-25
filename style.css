@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400&display=swap");
+
+:root {
+  --icon-purple: #6b21a8;
+  --button-purple: rgba(89, 28, 135, 0.122);
+  --button-click-purple: rgba(89, 28, 135, 0.229);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  font-family: "Lexend Deca", system-ui, sans-serif;
+}
+svg {
+  width: 40px;
+  margin-right: 10px;
+  color: var(--icon-purple);
+}
+button {
+  cursor: pointer;
+  border: none;
+}
+.grid-container {
+  display: grid;
+  grid-template-rows: 110px auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 30px 130px;
+}
+.header button {
+  margin-top: 3px;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 30px;
+  background-color: #fff;
+}
+.header button:hover,
+form button:hover {
+  background-color: var(--button-purple);
+}
+.header button:active,
+form button:active {
+  background-color: var(--button-click-purple);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px 1px;
+}
+.library-container {
+  display: flex;
+  align-items: center;
+  font-size: 28px;
+}
+.body {
+  padding-top: 40px;
+  display: grid;
+  justify-items: center;
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  width: 1000px;
+  max-width: 75%;
+  text-align: left;
+}
+th {
+  padding: 14px 0 14px 20px;
+  background-color: #fff;
+
+  letter-spacing: 1px;
+  font-size: 10px;
+}
+td {
+  background-color: #fcfafa;
+  font-size: 14px;
+  padding: 10px 0 10px 20px;
+  border-bottom: 1px solid rgba(229, 229, 229, 0.491);
+}
+tr:hover td {
+  background-color: #f7f7f7;
+}
+td:nth-child(1),
+td:nth-child(2) {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+td:nth-child(4) {
+  padding-left: 25px;
+}
+td:last-child {
+  padding-right: 5px;
+  padding-left: 10px;
+}
+.read-btn {
+  padding: 8px;
+  background-color: var(--button-purple);
+  margin-bottom: 5px;
+}
+.read {
+  background-color: rgba(0, 128, 0, 0.578);
+}
+.remove-btn {
+  padding: 4px 8px;
+  border: none;
+  background-color: #fcfafa;
+  margin-top: 2px;
+}
+.remove-btn:hover {
+  background-color: var(--button-purple);
+  border-radius: 50px;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* center */
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 10;
+  background-color: #fff;
+  width: 300px;
+}
+.popup.active {
+  display: block;
+}
+/* overlay NOT applied */
+#overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.form-container {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 10px;
+  padding: 20px 20px 30px;
+}
+.form-heading {
+  font-size: 21px;
+  justify-self: center;
+  padding-bottom: 20px;
+}
+[type="text"] {
+  border: 1px solid var(--button-purple);
+  background-color: white;
+  font-family: "Lexend Deca", system-ui, sans-serif;
+  border-radius: 7px;
+  justify-self: center;
+  width: 85%;
+  padding: 12px;
+  font-size: 14px;
+}
+input:focus {
+  background-color: white;
+  outline: 1px solid var(--button-click-purple);
+}
+input::placeholder {
+  color: darkgray;
+}
+.checkbox-container {
+  margin-top: 8px;
+  padding-bottom: 25px;
+  padding-left: 11px;
+  gap: 4px;
+  display: flex;
+  align-items: flex-start;
+  font-size: 15px;
+}
+[type="checkbox"] {
+  margin-top: 4px;
+  accent-color: var(--button-purple);
+}
+form button {
+  font-family: "Lexend Deca", system-ui, sans-serif;
+  border-radius: 10px;
+  width: 35%;
+  padding: 10px;
+  justify-self: center;
+  font-size: 15px;
+}
