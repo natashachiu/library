@@ -28,12 +28,27 @@ button {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background-color: #fff;
-  padding: 30px 130px;
+  padding: 30px 0;
+}
+.inside-header,
+table {
+  width: 1000px;
+  max-width: 75%;
+}
+.inside-header {
+  display: flex;
+  justify-content: space-between;
+}
+.library-container {
+  display: flex;
+  align-items: center;
+  font-size: 28px;
 }
 .header button {
+  justify-self: end;
   margin-top: 3px;
   padding: 12px 22px;
   border-radius: 12px;
@@ -49,11 +64,7 @@ form button:active {
   background-color: var(--button-click-purple);
   box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px 1px;
 }
-.library-container {
-  display: flex;
-  align-items: center;
-  font-size: 28px;
-}
+
 .body {
   padding-top: 40px;
   display: grid;
@@ -63,8 +74,6 @@ form button:active {
 table {
   border-collapse: collapse;
   font-size: 0.8rem;
-  width: 1000px;
-  max-width: 75%;
   text-align: left;
 }
 th {
