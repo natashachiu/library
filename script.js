@@ -16,18 +16,20 @@ const Book = class {
 
 let myLibrary = class {
   constructor() {
-    myLibrary = [];
+    this.books = [];
+  }
+  getNumBooks() {
+    return this.books.length;
   }
   getBook(row) {
-    return myLibrary[row];
+    return this.books[row];
   }
   addBook(title, author, pages, read) {
     const book = new Book(title, author, pages, read);
-    console.log(book);
-    myLibrary.push(book);
+    this.books.push(book);
   }
   removeBook(row) {
-    myLibrary.splice(row, 1);
+    this.books.splice(row, 1);
   }
 };
 const library = new myLibrary();
@@ -43,7 +45,7 @@ const displayBooks = () => {
     tbody.removeChild(tbody.childNodes[0]);
   }
 
-  for (let i = 0; i < myLibrary.length; i++) {
+  for (let i = 0; i < library.getNumBooks(); i++) {
     let row = tbody.insertRow();
 
     let c1 = row.insertCell(0);
@@ -69,6 +71,7 @@ const displayBooks = () => {
     removeBtn.innerHTML = "&times;";
     c5.appendChild(removeBtn);
   }
+
   const removeBtns = document.querySelectorAll(".remove-btn");
   removeBtns.forEach((button) => {
     button.addEventListener("click", removeBook);
@@ -115,9 +118,11 @@ const handleUserInput = (e) => {
   const author = form.elements["author"].value;
   const pages = form.elements["pages"].value;
   const read = form.elements["read"].checked;
-  library.addBook(title, author, pages, read);
+
   closePopup();
   clearFormInput();
+
+  library.addBook(title, author, pages, read);
   displayBooks();
 };
 
