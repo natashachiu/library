@@ -1,19 +1,43 @@
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-
-Book.prototype.toggleReadStatus = function () {
-  if (this.read) {
-    this.read = false;
-  } else {
-    this.read = true;
+const Book = class {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+  toggleReadStatus() {
+    if (this.read) {
+      this.read = false;
+    } else {
+      this.read = true;
+    }
   }
 };
 
-function displayBooks() {
+let myLibrary = class {
+  constructor() {
+    myLibrary = [];
+  }
+  getBook(row) {
+    return myLibrary[row];
+  }
+  addBook(title, author, pages, read) {
+    const book = new Book(title, author, pages, read);
+    console.log(book);
+    myLibrary.push(book);
+  }
+  removeBook(row) {
+    myLibrary.splice(row, 1);
+  }
+};
+const library = new myLibrary();
+
+library.addBook("The Hobbit", "J.R.R. Tolkien", 304, false);
+library.addBook("Normal People", "Sally Rooney", 266, false);
+library.addBook("Flow", "Mihaly Csikszentmihalyi", 336, true);
+library.addBook("Killers of the Flower Moon", "David Grann", 352, false);
+
+const displayBooks = () => {
   const tbody = document.querySelector("tbody");
   while (tbody.childNodes.length) {
     tbody.removeChild(tbody.childNodes[0]);
@@ -27,14 +51,14 @@ function displayBooks() {
     let c3 = row.insertCell(2);
     let c4 = row.insertCell(3);
     let c5 = row.insertCell(4);
-    c1.textContent = myLibrary[i].title;
-    c2.textContent = myLibrary[i].author;
-    c3.textContent = myLibrary[i].pages;
+    c1.textContent = library.getBook(i).title;
+    c2.textContent = library.getBook(i).author;
+    c3.textContent = library.getBook(i).pages;
 
     let readBtn = document.createElement("button");
     readBtn.classList.add("read-btn");
     readBtn.setAttribute("row", i);
-    myLibrary[i].read
+    library.getBook(i).read
       ? readBtn.classList.add("read")
       : readBtn.classList.remove("read");
     c4.appendChild(readBtn);
@@ -54,67 +78,55 @@ function displayBooks() {
   readBtns.forEach((button) => {
     button.addEventListener("click", toggleRead);
   });
-}
-
-let myLibrary = [
-  new Book("The Hobbit", "J.R.R. Tolkien", 304, false),
-  new Book("Normal People", "Sally Rooney", 266, false),
-  new Book("Flow", "Mihaly Csikszentmihalyi", 336, true),
-  new Book("Killers of the Flower Moon", "David Grann", 352, false),
-];
+};
 displayBooks();
 
-const newBookBtn = document.querySelector(".add-book");
-const popup = document.querySelector(".popup");
-const overlay = document.querySelector("#overlay");
-const form = document.querySelector(".form-container");
-
-newBookBtn.addEventListener("click", openPopup);
-overlay.addEventListener("click", closePopup);
-form.addEventListener("submit", handleUserInput);
-
-function openPopup() {
-  popup.classList.add("active");
-  overlay.classList.add("active");
-}
-function closePopup() {
-  popup.classList.remove("active");
-  overlay.classList.remove("active");
-  clearInput();
-}
-
-function handleUserInput(e) {
-  e.preventDefault(); //submit input sends data to a server by default
-  let title = form.elements["title"];
-  let author = form.elements["author"];
-  let pages = form.elements["pages"];
-  let read = form.elements["read"];
-  addToLibrary(title.value, author.value, pages.value, read.checked);
-  closePopup();
-  displayBooks();
-}
-
-function addToLibrary(title, author, pages, read) {
-  let newBook = new Book(title, author, pages, read);
-  // store the new book objects into an array
-  myLibrary.push(newBook);
-}
-
 function removeBook(e) {
-  let row = e.target.getAttribute("row");
-  myLibrary.splice(row, 1);
+  const row = e.target.getAttribute("row");
+  library.removeBook(row);
   displayBooks();
 }
 
 function toggleRead(e) {
-  let row = e.target.getAttribute("row");
-  myLibrary[row].toggleReadStatus();
+  const row = e.target.getAttribute("row");
+  library.getBook(row).toggleReadStatus();
   displayBooks();
 }
 
-function clearInput() {
+const openPopup = () => {
+  popup.classList.add("active");
+  overlay.classList.add("active");
+};
+const closePopup = () => {
+  popup.classList.remove("active");
+  overlay.classList.remove("active");
+};
+
+const clearFormInput = () => {
   title.value = "";
   author.value = "";
   pages.value = "";
   read.checked = false;
-}
+};
+
+const handleUserInput = (e) => {
+  e.preventDefault(); //submit input sends data to a server by default
+  const title = form.elements["title"].value;
+  const author = form.elements["author"].value;
+  const pages = form.elements["pages"].value;
+  const read = form.elements["read"].checked;
+  library.addBook(title, author, pages, read);
+  closePopup();
+  clearFormInput();
+  displayBooks();
+};
+
+const form = document.querySelector(".form-container");
+form.addEventListener("submit", handleUserInput);
+
+const newBookBtn = document.querySelector(".add-book");
+newBookBtn.addEventListener("click", openPopup);
+
+const popup = document.querySelector(".popup");
+const overlay = document.querySelector("#overlay");
+overlay.addEventListener("click", closePopup);

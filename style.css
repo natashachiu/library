@@ -79,9 +79,14 @@ table {
 th {
   padding: 14px 0 14px 20px;
   background-color: #fff;
-
   letter-spacing: 1px;
   font-size: 10px;
+}
+th:nth-child(1) {
+  min-width: 159px;
+}
+th:nth-child(2) {
+  min-width: 141px;
 }
 td {
   background-color: #fcfafa;
@@ -94,10 +99,15 @@ tr:hover td {
 }
 td:nth-child(1),
 td:nth-child(2) {
-  max-width: 200px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+td:nth-child(1) {
+  min-width: 180px;
+}
+td:nth-child(2) {
+  min-width: 160px;
 }
 td:nth-child(4) {
   padding-left: 25px;
